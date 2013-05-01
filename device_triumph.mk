@@ -20,7 +20,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_small.mk)
 
 $(call inherit-product, device/common/gps/gps_us_supl.mk)
 
-$(call inherit-product, frameworks/base/build/phone-hdpi-512-dalvik-heap.mk)
+$(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
 
 $(call inherit-product-if-exists, vendor/motorola/triumph/triumph-vendor.mk)
 
@@ -66,24 +66,50 @@ PRODUCT_PACKAGES += $(HDMID)
 PRODUCT_PACKAGES += $(KERNEL_TESTS)
 PRODUCT_PACKAGES += $(LIBGENLOCK)
 PRODUCT_PACKAGES += $(OPENCORE)
+# Permissions
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
+    frameworks/native/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml \
+    frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
+    frameworks/native/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
+    frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
+    frameworks/native/data/etc/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml \
+    frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
+    frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
+    frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
+    frameworks/native/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml \
+    frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
+    frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
+    frameworks/native/data/etc/android.hardware.touchscreen.xml:system/etc/permissions/android.hardware.touchscreen.xml \
+    frameworks/native/data/etc/android.hardware.touchscreen.multitouch.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
+    frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
+    frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
+    packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml
 
-# Live Wallpapers
-PRODUCT_PACKAGES += \
-    LiveWallpapers \
-    LiveWallpapersPicker \
-    VisualizationWallpapers \
-    librs_jni
+# Triumph Prebuilt Files
+PRODUCT_COPY_FILES += \
+    device/motorola/triumph/prebuilt/08hostapd:/system/etc/init.d/08hostapd \
+    device/motorola/triumph/prebuilt/100complete:/system/etc/init.d/100complete 
 
-# Filesystem management tools
-PRODUCT_PACKAGES += \
-    make_ext4fs \
-    setup_fs
+# Triumph init scripts
+PRODUCT_COPY_FILES += \
+    device/motorola/triumph/prebuilt/init.triumph.usb.rc:root/init.triumph.usb.rc \
+    device/motorola/triumph/prebuilt/init.triumph.rc:root/init.triumph.rc \
+    device/motorola/triumph/prebuilt/ueventd.triumph.rc:root/ueventd.triumph.rc
 
 # Sensors, GPS, Lights
 PRODUCT_PACKAGES += \
     gps.triumph \
     lights.triumph \
     senors.triumph
+
+# Audio
+PRODUCT_PACKAGES += \
+    audio.a2dp.default \
+    audio_policy.msm7x30 \
+    audio.primary.msm7x30 \
+    libaudioutils \
+    libtinyalsa
 
 # Video
 PRODUCT_PACKAGES += \
@@ -97,33 +123,18 @@ PRODUCT_PACKAGES += \
     libQcomUI \
     libtilerenderer
 
-# Audio
-PRODUCT_PACKAGES += \
-    audio.a2dp.default \
-    audio_policy.msm7x30 \
-    audio.primary.msm7x30 \
-    libaudioutils \
-    libtinyalsa \
-    libacdbloader \
-    libaudioalsa \
-     libv8
-
-# Misc
-PRODUCT_PACKAGES += \
-    com.android.future.usb.accessory \
-    Torch \
-    CMFileManager
-
 # QCOM OMX
 PRODUCT_PACKAGES += \
     libstagefrighthw \
     libOmxCore \
-    libmm-omxcore \
     ast-mm-vdec-omx-test \
+    libmm-omxcore \
     libdivxdrmdecrypt \
     liblasic \
     libOmxVdec \
     libOmxVenc \
+    libOmxQcelp13Enc \
+    libOmxAacEnc \
     libOmxVidEnc \
     mm-vdec-omx-property-mgr \
     mm-vdec-omx-test \
@@ -156,8 +167,36 @@ PRODUCT_PACKAGES += \
     mm-omx-devmgr \
     mm-qcamera-test \
     mm-qcamera-testsuite-client \
-    libomxaudio
+    libomxaudio \
+    libOmxAmrEnc
 
+# Misc
+PRODUCT_PACKAGES += \
+    com.android.future.usb.accessory \
+    Torch \
+    CMFileManager
+
+# Live Wallpapers
+PRODUCT_PACKAGES += \
+    LiveWallpapers \
+    LiveWallpapersPicker \
+    VisualizationWallpapers \
+    librs_jni
+
+# Filesystem management tools
+PRODUCT_PACKAGES += \
+    make_ext4fs \
+    setup_fs
+
+PRODUCT_PACKAGES += \
+    Gallery2 \
+    SpareParts \
+    LatinIME \
+    Mms \
+    Camera \
+    rild \
+    Stk
+    
 # Camera
 PRODUCT_PACKAGES += \
     camera.msm7x30
@@ -165,43 +204,7 @@ PRODUCT_PACKAGES += \
 # HDMI
 PRODUCT_PACKAGES += \
     hdmid
-# Build hdmid
- include frameworks/base/cmds/hdmid/Android.mk
 
-# Permissions
-PRODUCT_COPY_FILES += \
-    frameworks/base/data/etc/com.google.android.media.effects.xml:system/etc/permissions/com.google.android.media.effects.xml \
-    frameworks/base/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
-    frameworks/base/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml \
-    frameworks/base/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
-    frameworks/base/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
-    frameworks/base/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
-    frameworks/base/data/etc/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml \
-    frameworks/base/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
-    frameworks/base/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
-    frameworks/base/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
-    frameworks/base/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml \
-    frameworks/base/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
-    frameworks/base/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
-    frameworks/base/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
-    frameworks/base/data/etc/android.hardware.touchscreen.xml:system/etc/permissions/android.hardware.touchscreen.xml \
-    frameworks/base/data/etc/android.hardware.touchscreen.multitouch.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
-    frameworks/base/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
-    frameworks/base/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
-    frameworks/base/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
-    packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml
-
-# Triumph init scripts
-PRODUCT_COPY_FILES += \
-    device/motorola/triumph/prebuilt/init.triumph.usb.rc:root/init.triumph.usb.rc \
-    device/motorola/triumph/prebuilt/init.triumph.rc:root/init.triumph.rc \
-    device/motorola/triumph/prebuilt/ueventd.triumph.rc:root/ueventd.triumph.rc
-    
-# Triumph Prebuilt Files
-PRODUCT_COPY_FILES += \
-    device/motorola/triumph/prebuilt/08hostapd:/system/etc/init.d/08hostapd \
-    device/motorola/triumph/prebuilt/100complete:/system/etc/init.d/100complete 
-    
 # The OpenGL ES API level that is natively supported by this device.
 # This is a 16.16 fixed point number
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -243,9 +246,3 @@ PRODUCT_DEVICE := triumph
 PRODUCT_BRAND := Motorola
 PRODUCT_MODEL := WX435
 PRODUCT_MANUFACTURER := Motorola
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.ril.def.agps.mode=2 \
-    ro.ril.def.agps.feature=1 \
-    ro.com.google.locationfeatures=1 \
-    persist.sys.usb.config=mass_storage \
-    debug.camcorder.disablemeta=1

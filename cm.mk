@@ -22,7 +22,7 @@ $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/cm/config/cdma.mk)
 
-PRODUCT_NAME := cm_triumph
+PRODUCT_NAME := triumph
 PRODUCT_BRAND := Motorola
 PRODUCT_DEVICE := triumph
 PRODUCT_MODEL := WX435
@@ -35,11 +35,11 @@ UTC_DATE := $(shell date +%s)
 DATE     := $(shell date +%Y%m%d)
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    BUILD_ID=IMM76I \
+    BUILD_ID=JRO03C \
     PRODUCT_NAME=triumph \
     TARGET_DEVICE=triumph \
-    BUILD_FINGERPRINT=motorola/motorola_triumph/triumph:4.0.4/IMM76L/292727:user/release-keys \
-    PRIVATE_BUILD_DESC="triumph-user 4.0.4 IMM76L 292727 release-keys" \
+    BUILD_FINGERPRINT=motorola/motorola_triumph/triumph:4.1.1/JRO03C/292727:user/release-keys \
+    PRIVATE_BUILD_DESC="triumph-user 4.1.1 JRO03C 292727 release-keys" \
     BUILD_NUMBER=${DATE} \
     BUILD_VERSION_TAGS=release-keys \
     TARGET_BUILD_TYPE=user

@@ -47,12 +47,9 @@ ro.telephony.num.auto.hyphen=true
 ro.telephony.gsm.spn.shortname=true
 ro.cdma.home.operator.numeric=310053
 
-# Brightness scaling of the button backlight
-persist.sys.button_brightness=100
-
 wifi.interface=wlan0
 wlan.driver.status=ok
-wifi.supplicant_scan_interval=90
+wifi.supplicant_scan_interval=180
 wifi.supplicant_no_update_ctrl=true
 
 service.config.gsensor_cal=1
@@ -96,7 +93,9 @@ ro.ril.hsupa.category=6
 
 #HW accel
 debug.fb.rgb565=0
-debug.composition.type=dyn
+debug.composition.type=gpu
+debug.mdmcomp.maxlayer=3
+debug.mdmcomp.logs=0
 ro.sf.compbypass.enable=1
 debug.enabletr=false
 com.qc.hardware=true

@@ -14,17 +14,7 @@
      limitations under the License.
 -->
 
-<!-- Version History
-        version 1 - initial version.
-        version 2 - added recipientLimit.
-        version 3 - added min/max recycler values.
-        version 4 - added sms to mms text threshold.
--->
-
-<mms_config version="4">
-    <!-- If true, the text message will be split every 160 characters.
-         If false, the text will never be split before being sent. -->
-    <bool name="enableSplitSMS">true</bool>
-
-
-</mms_config>
+<resources>
+    <!-- LED Flashlight -->
+    <bool name="has_led_flash">true</bool>
+</resources>
