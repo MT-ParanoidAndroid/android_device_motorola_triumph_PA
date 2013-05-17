@@ -22,7 +22,7 @@ $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/cm/config/cdma.mk)
 
-PRODUCT_NAME := cm_triumph
+PRODUCT_NAME := triumph
 PRODUCT_BRAND := Motorola
 PRODUCT_DEVICE := triumph
 PRODUCT_MODEL := WX435
@@ -35,11 +35,14 @@ UTC_DATE := $(shell date +%s)
 DATE     := $(shell date +%Y%m%d)
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
-    BUILD_ID=IMM76I \
-    PRODUCT_NAME=triumph \
-    TARGET_DEVICE=triumph \
-    BUILD_FINGERPRINT=motorola/motorola_triumph/triumph:4.0.4/IMM76L/292727:user/release-keys \
-    PRIVATE_BUILD_DESC="triumph-user 4.0.4 IMM76L 292727 release-keys" \
+   PRODUCT_NAME=${PRODUCT_DEVICE}_${PRODUCT_SFX} \
+   TARGET_DEVICE=${PRODUCT_DEVICE} \
+   BUILD_FINGERPRINT=${PRODUCT_BRAND}/${PRODUCT_DEVICE}_${PRODUCT_SFX}/${PRODUCT_DEVICE_PREFIX}_${PRODUCT_DEVICE}:${PLATFORM_VERSION}/${BUILD_ID}/${DATE}:user/release-keys \
+   PRIVATE_BUILD_DESC="${PRODUCT_DEVICE_PREFIX}_${PRODUCT_DEVICE}-user ${PLATFORM_VERSION} ${BUILD_ID} ${DATE} release-keys" \
     BUILD_NUMBER=${DATE} \
     BUILD_VERSION_TAGS=release-keys \
+   PRODUCT_BRAND=${PRODUCT_BRAND} \
     TARGET_BUILD_TYPE=user
+   BUILD_UTC_DATE= \
+   PRODUCT_DEFAULT_LANGUAGE=en \
+   PRODUCT_DEFAULT_REGION=US \

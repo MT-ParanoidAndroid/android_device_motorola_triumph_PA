@@ -112,7 +112,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory \
     Torch \
-    CMFileManager
+    CMFileManager \
+    rild \
+    Stk
 
 # QCOM OMX
 PRODUCT_PACKAGES += \
@@ -124,6 +126,8 @@ PRODUCT_PACKAGES += \
     liblasic \
     libOmxVdec \
     libOmxVenc \
+    libOmxQcelp13Enc \
+    libOmxAacEnc \
     libOmxVidEnc \
     mm-vdec-omx-property-mgr \
     mm-vdec-omx-test \
@@ -156,7 +160,8 @@ PRODUCT_PACKAGES += \
     mm-omx-devmgr \
     mm-qcamera-test \
     mm-qcamera-testsuite-client \
-    libomxaudio
+    libomxaudio \
+    libOmxAmrEnc
 
 # Camera
 PRODUCT_PACKAGES += \

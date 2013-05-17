@@ -182,18 +182,20 @@
 /sys/devices/virtual/input/input*   poll_delay  0660  root   input
 /sys/devices/virtual/usb_composite/*   enable      0664  root   system
 #permissions for video
-/dev/msm_vidc_reg         0660  system       audio
-/dev/msm_vidc_dec         0660  system       audio
-/dev/msm_vidc_enc         0660  system       audio
+/dev/msm_vidc_dec        0660   system  audio
+/dev/msm_vidc_enc        0660   system  audio
+/dev/msm_vidc_reg        0660   system  audio
 /dev/pmem_venc           0660   system  audio
 #permissions for audio
 /dev/msm_amrnb            0660  system       audio
 /dev/msm_amrwb            0660  system       audio
-/dev/msm_aac              0660  system       audio
-/dev/msm_aac_in           0660  system       audio
+/dev/msm_aac*            0660   system  audio
+/dev/msm_aac_in          0666   audio   audio
+/dev/msm_mvs             0660   system  audio
 /dev/msm_qcelp            0660  system       audio
+/dev/msm_vpe             0666   system  system
 /dev/msm_evrc             0660  system       audio
-/dev/msm_fm               0660  system       audio
+/dev/msm_fm              0666   audio   audio
 /dev/msm_acdb             0660  system       audio
 /dev/msm_rtac             0660  system       audio
 /dev/msm_wma              0660  system       audio
@@ -216,6 +218,7 @@
 /dev/msm_rotator        0660    system      graphics
 /dev/kgsl-2d0            0666   system  graphics
 /dev/kgsl-3d0            0666   system  graphics
+/dev/kgsl-2d1             0666   system       graphics
 /dev/graphics/fb*       0666    system      graphics
 
 #genlock
